@@ -1,8 +1,11 @@
 PYTHON = $(shell which python3.4)
 ENV = $(CURDIR)/env
+PROJECT = superlists
 COVERAGE = $(ENV)/bin/coverage
 COVERAGE_OPTS = --rcfile=coverage.cfg
 TEST = $(MANAGE) test
+UNIT = $(TEST) lists
+FUNCTIONAL = $(TEST) functional_tests
 MANAGE = ./manage.py
 
 virtual-env:
@@ -22,7 +25,13 @@ nose2 coverage:
 	$(ENV)/bin/pip install -r requirements.txt
 
 test: nose2
-	$(ENV)/bin/python $(TEST) 
+	$(ENV)/bin/python $(TEST)
+
+unit: nose2
+	$(ENV)/bin/python $(UNIT)
+
+func: nose2
+	$(ENV)/bin/python $(FUNCTIONAL) 
 
 test-coverage: coverage
 	$(COVERAGE) erase
@@ -36,8 +45,8 @@ coverage-xml: test-coverage
 	$(COVERAGE) xml $(COVERAGE_OPTS)
 
 migrate:
-	env/bin/python manage.py makemigrations superlists --auto
-	env/bin/python manage.py migrate superlists
+	env/bin/python manage.py makemigrations $(PROJECT) --auto
+	env/bin/python manage.py migrate $(PROJECT)
 
 run:
 	env/bin/python manage.py runserver 0.0.0.0:8000
