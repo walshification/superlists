@@ -1,4 +1,5 @@
 from django.conf.urls import patterns, include, url
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.contrib import admin
 
 urlpatterns = patterns('',
@@ -6,3 +7,5 @@ urlpatterns = patterns('',
     url(r'^(\d+)/add_item$', 'lists.views.add_item', name='add_item'),
     url(r'^new$', 'lists.views.new_list', name='new_list'),
 )
+
+urlpatterns += staticfiles_urlpatterns()
