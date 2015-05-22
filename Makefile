@@ -1,6 +1,6 @@
 PYTHON = $(shell which python3.4)
 ENV = $(CURDIR)/env
-PROJECT = superlists
+PROJECT = lists
 COVERAGE = $(ENV)/bin/coverage
 COVERAGE_OPTS = --rcfile=coverage.cfg
 TEST = $(MANAGE) test
@@ -12,26 +12,23 @@ virtual-env:
     virtualenv --python=$(PYTHON) env
 
 env: virtual-env
-	env/bin/pip install -r requirements.txt
-
-make bpython-env: test-env
-    env/bin/pip install bpython -i http://pypi.python.org/pypi
+	env/bin/pip3 install -r requirements.txt
 
 clean:
 	rm -rf env
 	find . -iname '*.pyc' -exec rm {} \;
 
 nose2 coverage:
-	$(ENV)/bin/pip install -r requirements.txt
+	$(ENV)/bin/pip3 install -r requirements.txt
 
 test: nose2
-	$(ENV)/bin/python $(TEST)
+	$(ENV)/bin/python3 $(TEST)
 
 unit: nose2
-	$(ENV)/bin/python $(UNIT)
+	$(ENV)/bin/python3 $(UNIT)
 
 func: nose2
-	$(ENV)/bin/python $(FUNCTIONAL) 
+	$(ENV)/bin/python3 $(FUNCTIONAL) 
 
 test-coverage: coverage
 	$(COVERAGE) erase
@@ -45,8 +42,11 @@ coverage-xml: test-coverage
 	$(COVERAGE) xml $(COVERAGE_OPTS)
 
 migrate:
-	env/bin/python manage.py makemigrations $(PROJECT) --auto
-	env/bin/python manage.py migrate $(PROJECT)
+	env/bin/python3 manage.py makemigrations $(PROJECT)
+	env/bin/python3 manage.py migrate $(PROJECT)
 
 run:
-	env/bin/python manage.py runserver 0.0.0.0:8000
+	env/bin/python3 manage.py runserver 0.0.0.0:8000
+
+requirements:
+	env/bin/pip3 freeze > requirements.txt
