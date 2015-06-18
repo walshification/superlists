@@ -14,14 +14,14 @@ eg, on Ubuntu:
     sudo apt-get install nginx git python3 python3-pip
     sudo pip3 install virtualenv
 
-## Nginx Virtual Hosting config
+## Nginx Virtual Host config
 
 * see nginx.template.conf
 * replace SITENAME with, eg, staging.my-domain.com
 
 ## Upstart Job
 
-* see gunicorn.template.conf
+* see gunicorn-upstart.template.conf
 * replace SITENAME with, eg, staging.my-domain.com
 
 ## Folder structure:
