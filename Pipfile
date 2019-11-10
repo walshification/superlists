@@ -4,11 +4,22 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
+autoflake = "*"
+bandit = "~=1.5.1"
+black = "==18.9b0"
+coverage = "*"
+factory-boy = "~=2.11.1"
+flake8 = "*"
+ipdb = ">=0.11"
+ipython = "*"
+isort = "*"
+pytest = "~=5.2.1"
+pytest-cov = "*"
+pytest-django = "~=3.5.1"
+selenium = "~=3.141.0"
 
 [packages]
-coverage = "==3.7.1"
-selenium = "==2.45.0"
-Django = "==1.7"
+django = "~=2.2"
 
 [requires]
 python_version = "3.6"
