@@ -1,0 +1,20 @@
+language: python
+python:
+  - "3.6"
+sudo: false
+
+env:
+  global:
+    - MOZ_HEADLESS=1
+addons:
+  firefox: latest
+
+branches:
+  only:
+    - master
+
+install:
+  - make ci-env
+
+script:
+  - make ci-test
