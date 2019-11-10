@@ -6,12 +6,16 @@ BLACK := $(ENV)/bin/black
 FLAKE8 := $(ENV)/bin/flake8
 IPYTHON := $(ENV)/bin/ipython
 BANDIT := $(ENV)/bin/bandit
+SELENIUM := $(ENV)/lib/python3.6/site-packages/selenium
 
-test: test-unit lint test-security
+test: test-unit lint test-func test-security
 
 test-unit: | $(PYTEST)
 	pipenv run pytest --cov
 	pipenv run coverage html
+
+test-func: | $(SELENIUM) $(GECKODRIVER)
+	pipenv run python functional_tests.py
 
 lint: | $(BLACK) $(FLAKE8)
 	pipenv run black . --check
@@ -41,9 +45,12 @@ $(GECKODRIVER):
 ci-env:
 	pip install pip --upgrade
 	pip install pipenv
-	pipenv install --dev
+	pipenv install --dev --system
 
-$(IPYTHON) $(PYTEST) $(BLACK) $(FLAKE8): | $(ENV)
+ci-test:
+	python functional_tests.py
+
+$(IPYTHON) $(PYTEST) $(BLACK) $(FLAKE8) $(SELENIUM): | $(ENV)
 	pipenv install --dev
 
 clean:
