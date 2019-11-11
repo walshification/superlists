@@ -1,0 +1,23 @@
+language: python
+python:
+  - "3.6"
+sudo: false
+
+env:
+  global:
+    - MOZ_HEADLESS=1
+addons:
+  firefox: latest
+
+branches:
+  only:
+    - master
+
+install:
+  - wget https://github.com/mozilla/geckodriver/releases/download/v0.26.0/geckodriver-v0.26.0-linux64.tar.gz
+  - tar -xzf geckodriver-v0.26.0-linux64.tar.gz -C bin
+  - export PATH=$(pwd)/bin:$PATH
+  - make init
+
+script:
+  - make test

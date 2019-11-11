@@ -44,7 +44,7 @@ lint: | $(AUTOFLAKE) $(BLACK) $(FLAKE8) $(ISORT)
 $(DJANGO) $(ENV):
 	pipenv install
 
-$(COVERAGE) $(IPYTHON) $(BLACK) $(FLAKE8) $(SELENIUM): | $(ENV)
+$(COVERAGE) $(IPYTHON) $(BLACK) $(FLAKE8) $(SELENIUM) init: | $(ENV)
 	pipenv install --dev
 
 $(GECKODRIVER):
