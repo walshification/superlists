@@ -22,6 +22,8 @@ SECRET_KEY = '+!myf1#_s38d(r&-%((6#-a6-n9*zyh-ihn#l-w+$j5_yhpl1n'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+TEMPLATE_DEBUG = True
+
 ALLOWED_HOSTS = []
 
 
@@ -91,11 +93,3 @@ STATICFILES_DIRS = (
         'static',
     ),
 )
-
-TEMPLATES = [
-    {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
-        'APP_DIRS': True,
-    },
-]

@@ -1,8 +1,5 @@
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.common.by import By
 
 from functional_tests.base import FunctionalTest
 
@@ -12,7 +9,7 @@ class NewVisitorTest(FunctionalTest):
     def test_can_start_a_list_and_retrieve_it_later(self):
         # Edith has heard about a cool new online to-do app. She goes
         # to check out its homepage
-        self.browser.get(self.live_server_url)
+        self.browser.get(self.server_url)
 
         # She notices the page title and header mention to-do lists
         self.assertIn('To-Do', self.browser.title)
@@ -33,12 +30,9 @@ class NewVisitorTest(FunctionalTest):
         # When she hits enter, she is taken to a new URL,
         # and now the page lists "1: Buy peacock feathers" as an item in a
         # to-do list table
-        self.get_form().submit()
-        WebDriverWait(
-            self.browser, 10
-        ).until(EC.presence_of_element_located((By.ID, 'todo-1')))
+        inputbox.send_keys(Keys.ENTER)
         edith_list_url = self.browser.current_url
-        self.assertRegex(edith_list_url, r"/lists/\d+")
+        self.assertRegex(edith_list_url, '/lists/.+')
         self.check_for_row_in_list_table('1: Buy peacock feathers')
 
         # There is still a text box inviting her to add another item. She
@@ -46,10 +40,7 @@ class NewVisitorTest(FunctionalTest):
         # methodical)
         inputbox = self.get_item_input_box()
         inputbox.send_keys('Use peacock feathers to make a fly')
-        self.get_form().submit()
-        WebDriverWait(
-            self.browser, 10
-        ).until(EC.presence_of_element_located((By.ID, 'todo-2')))
+        inputbox.send_keys(Keys.ENTER)
 
         # The page updates again, and now shows both items on her list
         self.check_for_row_in_list_table('1: Buy peacock feathers')
@@ -57,8 +48,8 @@ class NewVisitorTest(FunctionalTest):
 
         # Now a new user, Francis, comes long to the site.
 
-        # We use a new browser session to make sure that no information
-        # of Edith's is coming through from cookies etc
+        ## We use a new browser session to make sure that no information
+        ## of Edith's is coming through from cookies etc
         self.browser.quit()
         self.browser = webdriver.Firefox()
 
@@ -73,10 +64,7 @@ class NewVisitorTest(FunctionalTest):
         # is less interesting than Edith...
         inputbox = self.get_item_input_box()
         inputbox.send_keys('Buy milk')
-        self.get_form().submit()
-        WebDriverWait(
-            self.browser, 10
-        ).until(EC.presence_of_element_located((By.ID, 'todo-1')))
+        inputbox.send_keys(Keys.ENTER)
 
         # Francis gets his own unique URL
         francis_list_url = self.browser.current_url
