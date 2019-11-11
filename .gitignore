@@ -1,8 +1,9 @@
-.python-version
 .coverage
 .DS_Store
 db.sqlite3
+.pytest_cache/*
 __pycache__
 *.pyc
-env/*
+.venv/*
 htmlcov/*
+geckodriver.log

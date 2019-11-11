@@ -13,7 +13,7 @@ class HomePageTest(TestCase):
 
     def test_home_page_renders_home_template(self):
         response = self.client.get('/')
-        self.assertTemplateUsed(response, 'home.html')
+        self.assertTemplateUsed(response, 'lists/home.html')
 
     def test_home_page_uses_item_form(self):
         response = self.client.get('/')
@@ -32,7 +32,7 @@ class ListViewTest(TestCase):
     def test_uses_list_template(self):
         list_ = List.objects.create()
         response = self.client.get('/lists/%d/' % (list_.id,))
-        self.assertTemplateUsed(response, 'list.html')
+        self.assertTemplateUsed(response, 'lists/list.html')
 
     def test_displays_only_items_for_that_list(self):
         correct_list = List.objects.create()
@@ -87,7 +87,7 @@ class ListViewTest(TestCase):
     def test_for_invalid_input_renders_list_templates(self):
         response = self.post_invalid_input()
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'list.html')
+        self.assertTemplateUsed(response, 'lists/list.html')
 
     def test_for_invalid_input_passes_form_to_template(self):
         response = self.post_invalid_input()
@@ -127,7 +127,7 @@ class NewListTest(TestCase):
     def test_validation_errors_are_sent_back_to_home_page_template(self):
         response = self.client.post('/lists/new', data={'text': ''})
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'home.html')
+        self.assertTemplateUsed(response, 'lists/home.html')
         expected_error = escape("You can't have an empty list item")
         self.assertContains(response, expected_error)
 
@@ -139,7 +139,7 @@ class NewListTest(TestCase):
     def test_for_invalid_input_renders_home_template(self):
         response = self.client.post('/lists/new', data={'text': ''})
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'home.html')
+        self.assertTemplateUsed(response, 'lists/home.html')
 
     def test_validation_errors_are_shown_on_the_home_page(self):
         response = self.client.post('/lists/new', data={'text': ''})

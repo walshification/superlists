@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'lists/base.html' %}
 
 {% block header_text %}Your To-Do List{% endblock %}
 
@@ -7,7 +7,7 @@
 {% block table %}
     <table id="id_list_table" class="table">
         {% for item in list.item_set.all %}
-            <tr><td>{{ forloop.counter }}: {{ item.text }}</td></tr>
+            <tr id="todo-{{ forloop.counter }}"><td>{{ forloop.counter }}: {{ item.text }}</td></tr>
         {% endfor %}
     </table>
 {% endblock %}
