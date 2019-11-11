@@ -53,4 +53,3 @@ $(GECKODRIVER):
 clean:
 	pipenv --rm
 	find . -name "__pycache__" -type d -exec rm -r "{}" \;
-
