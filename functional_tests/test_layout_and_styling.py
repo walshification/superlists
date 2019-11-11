@@ -2,7 +2,6 @@ from functional_tests.base import FunctionalTest
 
 
 class LayoutAndStylingTest(FunctionalTest):
-
     def test_layout_and_styling(self):
         # Edith goes to the home page
         self.browser.get(self.server_url)
@@ -12,17 +11,13 @@ class LayoutAndStylingTest(FunctionalTest):
         # centered there too
         inputbox = self.get_item_input_box()
         self.assertAlmostEqual(
-            inputbox.location['x'] + inputbox.size['width'] / 2,
-            512,
-            delta=5
+            inputbox.location["x"] + inputbox.size["width"] / 2, 512, delta=5
         )
 
         # She starts a new list and sees the input is nicely
         # centered too
-        inputbox.send_keys('testing\n')
+        inputbox.send_keys("testing\n")
         inputbox = self.get_item_input_box()
         self.assertAlmostEqual(
-            inputbox.location['x'] + inputbox.size['width'] / 2,
-            512,
-            delta=5
+            inputbox.location["x"] + inputbox.size["width"] / 2, 512, delta=5
         )

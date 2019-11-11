@@ -22,7 +22,7 @@ fmt: | $(AUTOFLAKE) $(BLACK) $(ISORT)
 	pipenv run autoflake --recursive --in-place --remove-all-unused-imports --remove-unused-variables .
 	pipenv run black .
 
-test: test-unit test-func
+test: test-unit test-func lint
 
 test-unit: | $(COVERAGE)
 	$(RUN_COVERAGE) erase && rm -rf htmlcov
